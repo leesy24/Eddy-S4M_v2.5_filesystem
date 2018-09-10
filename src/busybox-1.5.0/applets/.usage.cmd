@@ -1,4 +1,4 @@
-cmd_applets/usage := gcc -Wp,-MD,applets/.usage.d -Wall -Wstrict-prototypes -O2 -fomit-frame-pointer      -I/home/WORK/eddy-25-Open-EF8M/filesystem_2.5.1.1/src/busybox-1.5.0/include -o applets/usage applets/usage.c  
+cmd_applets/usage := gcc -Wp,-MD,applets/.usage.d -Wall -Wstrict-prototypes -O2 -fomit-frame-pointer      -I/home/WORK/eddy-25/filesystem_2.5.1.1/src/busybox-1.5.0/include -o applets/usage applets/usage.c  
 
 deps_applets/usage := \
   applets/usage.c \
@@ -172,7 +172,7 @@ deps_applets/usage := \
   /usr/include/linux/param.h \
   /usr/include/asm/param.h \
   applets/../include/xatonum.h \
-  /home/WORK/eddy-25-Open-EF8M/filesystem_2.5.1.1/src/busybox-1.5.0/include/usage.h \
+  /home/WORK/eddy-25/filesystem_2.5.1.1/src/busybox-1.5.0/include/usage.h \
     $(wildcard include/config/ture/date/isofmt.h) \
     $(wildcard include/config/ture/dd/ibs/obs.h) \
     $(wildcard include/config/fsd/fg/np.h) \
@@ -266,7 +266,7 @@ deps_applets/usage := \
     $(wildcard include/config/ture/xargs/support/confirmation.h) \
     $(wildcard include/config/ture/xargs/support/termopt.h) \
     $(wildcard include/config/ture/xargs/support/zero/term.h) \
-  /home/WORK/eddy-25-Open-EF8M/filesystem_2.5.1.1/src/busybox-1.5.0/include/applets.h \
+  /home/WORK/eddy-25/filesystem_2.5.1.1/src/busybox-1.5.0/include/applets.h \
     $(wildcard include/config/feature/verbose/usage.h) \
     $(wildcard include/config/install/no/usr.h) \
     $(wildcard include/config/t.h) \

@@ -16,6 +16,7 @@ deps_scripts/kconfig/kxgettext.o := \
     $(wildcard include/config/gefile64.h) \
     $(wildcard include/config/tify/level.h) \
   /usr/include/features.h \
+    $(wildcard include/config/c95.h) \
     $(wildcard include/config/ix2.h) \
     $(wildcard include/config/ix199309.h) \
     $(wildcard include/config/ix199506.h) \
@@ -28,14 +29,15 @@ deps_scripts/kconfig/kxgettext.o := \
     $(wildcard include/config/espaces.h) \
   /usr/include/bits/wordsize.h \
   /usr/include/gnu/stubs.h \
-  /usr/include/gnu/stubs-32.h \
-  /usr/lib/gcc/i386-redhat-linux/4.1.0/include/stddef.h \
+  /usr/include/gnu/stubs-64.h \
+  /usr/lib/gcc/x86_64-redhat-linux/4.3.2/include/stddef.h \
   /usr/include/sys/types.h \
   /usr/include/bits/types.h \
   /usr/include/bits/typesizes.h \
   /usr/include/time.h \
   /usr/include/endian.h \
   /usr/include/bits/endian.h \
+  /usr/include/bits/byteswap.h \
   /usr/include/sys/select.h \
   /usr/include/bits/select.h \
   /usr/include/bits/sigset.h \
@@ -46,9 +48,8 @@ deps_scripts/kconfig/kxgettext.o := \
   /usr/include/string.h \
     $(wildcard include/config/ing/inlines.h) \
   /usr/include/bits/string.h \
-    $(wildcard include/config/ing/arch/memset.h) \
-    $(wildcard include/config/ing/arch/strchr.h) \
   /usr/include/bits/string2.h \
+    $(wildcard include/config/ing/arch/strchr.h) \
   scripts/kconfig/lkc.h \
   scripts/kconfig/expr.h \
   /usr/include/stdio.h \
@@ -58,13 +59,11 @@ deps_scripts/kconfig/kxgettext.o := \
     $(wildcard include/config//io/file.h) \
   /usr/include/_G_config.h \
   /usr/include/wchar.h \
-  /usr/include/bits/wchar.h \
-  /usr/include/gconv.h \
-  /usr/lib/gcc/i386-redhat-linux/4.1.0/include/stdarg.h \
+  /usr/lib/gcc/x86_64-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/bits/stdio_lim.h \
   /usr/include/bits/sys_errlist.h \
   /usr/include/bits/stdio.h \
-  /usr/lib/gcc/i386-redhat-linux/4.1.0/include/stdbool.h \
+  /usr/lib/gcc/x86_64-redhat-linux/4.3.2/include/stdbool.h \
   /usr/include/libintl.h \
     $(wildcard include/config//gettext.h) \
   /usr/include/locale.h \

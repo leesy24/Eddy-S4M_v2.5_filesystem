@@ -18,12 +18,11 @@ TARGET		=	eddy					pinetd						def						\
 				test_spi_eeprom			test_tcp_server				test_tcp_client			\
 				test_serial				test_read_config			test_serial_to_lan-2	\
 				test_serial_to_lan-1	test_udp_server				test_udp_client			\
-				testdk			
-
+				testdk		
+				
 LIBS		=   -lrt SB_APIs/SB_APIs.a
 
 all : $(TARGET)
-
 
 test_tcp_client : test_tcp_client.o 
 	rm -f $@

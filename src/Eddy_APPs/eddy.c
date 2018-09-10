@@ -80,8 +80,8 @@ int ret;
 	if (CFG.ftp_server == SB_ENABLE)
 		system ("/usr/sbin/vsftpd &");
 	//--------------------------------------- WEB Server 	
-	if (CFG.web_server == SB_ENABLE)
-		system ("/usr/local/sbin/thttpd -C  /etc/thttpd.conf");
+	//if (CFG.web_server == SB_ENABLE)
+	//	system ("/usr/local/sbin/thttpd -C  /etc/thttpd.conf");
 	//--------------------------------------- Target Agent 
 	if (CFG.target_agent == SB_ENABLE)
 		system("/sbin/tae&");

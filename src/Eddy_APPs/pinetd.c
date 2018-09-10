@@ -41,6 +41,7 @@ int Number_Of_Ports;
 
 int SNMP_INIT ();
 pid_t Task_Launch  (char *tname, int no);
+int check_proc (char *task_name);
 void Fork_Processor (int no);
 void sig_chld (int signo);
 int get_network_address(unsigned char type);
@@ -55,7 +56,7 @@ int main(int argc, char *argv[])
 {
 struct eddy_gpio_struct  gpio;
 int port_no, no, fd, pflag=0, gflag=0,rdy_flag=0, gpio_fd, ProductID = EDDY_CPU;
-short RDY_cnt=15, SNMP_cnt=0, LCD_cnt=0, MMC_cnt=0;
+short RDY_cnt=15, SNMP_cnt=0, LCD_cnt=0, MMC_cnt=0, PROC_cnt=0;
 char  MMC_Flag=1, LCD_Flag=1;
 char cmd[30];
 unsigned int timer;
@@ -222,6 +223,10 @@ unsigned int timer;
 	//
 	//====================================================================================>
 
+	//--------------------------------------- WEB Server       
+    if (CFG_SYS.web_server == SB_ENABLE)                                                                     
+        system ("/usr/local/sbin/thttpd -C  /etc/thttpd.conf");
+
 	if (ProductID != EDDY_S4M) 
 		{
 		system ("insmod /etc/drivers/pca9539.ko");			// DIO and LCD 
@@ -272,6 +277,20 @@ unsigned int timer;
 					}
 				}
 			}
+
+		if (++PROC_cnt > 300)  // 5 분마다 검사
+			{
+			PROC_cnt = 0;
+			if (CFG_SYS.web_server == SB_ENABLE)
+				{
+				no = check_proc ("/usr/local/sbin/thttp");
+				if (no == 0) 
+					{
+					system ("/usr/local/sbin/thttpd -C /etc/thttpd.conf");
+					}
+				}
+			}
+
 		
 		if (CFG_GPIO.rdy_led == SB_ENABLE)
 			{
@@ -488,6 +507,51 @@ void sig_chld (int signo)
 		}
 	}
 }
+
+//===============================================================================
+int check_proc (char *task_name)
+{
+DIR *dp;
+struct dirent *entry;
+char ch;
+int ret, fd, pid_no, i, ret_code=0;
+char work[100];
+		
+		if ((dp = opendir ("/proc/")) == NULL)
+			{
+			printf ("proc dir not fount !\n");
+			return ret_code;;
+			}
+
+		chdir ("/proc/");
+		while ((entry = readdir (dp)) != NULL)
+			{
+			if (strcmp (".",  entry->d_name) == 0) continue;
+			if (strcmp ("..", entry->d_name) == 0) continue;
+			ch = entry->d_name[0];
+			if (!(ch >= '0' && ch <= '9')) continue;
+			pid_no = atoi (entry->d_name);
+			sprintf (work, "/proc/%d/cmdline", pid_no);
+			fd = open (work, 0);
+			if (fd < 0) continue;
+				
+			for (i=0; i<90; i++) work[i] = 0x00;
+			ret = read (fd, work, 90);
+			close (fd);		
+			
+			if (ret <= 0) continue;
+			if (!strncmp (task_name, work, strlen(task_name))) 
+				{
+//				printf ("Task name=%-20s, PID=%d\n", work, pid_no);
+				ret_code = 1;
+				break;
+				}
+			}
+		closedir (dp);
+
+	return ret_code;
+}
+
 //===============================================================================
 int SNMP_INIT ()
 {

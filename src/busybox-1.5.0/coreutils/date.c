@@ -197,7 +197,7 @@ int date_main(int argc, char **argv)
 			{
 			bb_perror_msg("cannot set date");
 			}
-/* yhlee
+/* yhlee */
 			{
 			struct tm   *TM, ttm ;
 			int fd;
@@ -214,7 +214,7 @@ int date_main(int argc, char **argv)
 			ioctl(fd, RTC_SET_TIME, &ttm);
 			close (fd);	
 			}
-*/
+
 	}
 
 	/* Display output */

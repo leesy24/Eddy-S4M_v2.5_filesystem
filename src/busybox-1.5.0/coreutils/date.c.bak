@@ -99,6 +99,19 @@ int date_main(int argc, char **argv)
 	} else
 		time(&tm);
 
+/*	yhlee
+		{
+		struct tm	rtctime;
+		int fd;
+			
+		fd = open("/dev/rtc0", O_RDONLY);
+		ioctl(fd, RTC_RD_TIME, &rtctime);
+		close (fd);
+		tm = mktime (&rtctime);
+		}
+*/
+
+
 	memcpy(&tm_time, localtime(&tm), sizeof(tm_time));
 	/* Zero out fields - take her back to midnight! */
 	if (date_str != NULL) {
@@ -184,6 +197,24 @@ int date_main(int argc, char **argv)
 			{
 			bb_perror_msg("cannot set date");
 			}
+/* yhlee
+			{
+			struct tm   *TM, ttm ;
+			int fd;
+		
+			TM = localtime(&tm); 
+			ttm.tm_year = TM->tm_year; 
+			ttm.tm_mon = TM->tm_mon; 
+			ttm.tm_mday = TM->tm_mday; 
+			ttm.tm_hour = TM->tm_hour; 
+			ttm.tm_min = TM->tm_min; 
+			ttm.tm_sec = TM->tm_sec; 
+			
+			fd = open("/dev/rtc0", O_RDONLY);
+			ioctl(fd, RTC_SET_TIME, &ttm);
+			close (fd);	
+			}
+*/
 	}
 
 	/* Display output */

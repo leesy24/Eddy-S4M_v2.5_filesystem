@@ -11,6 +11,7 @@ deps_scripts/kconfig/zconf.tab.o := \
     $(wildcard include/config/en.h) \
     $(wildcard include/config/ern/inlines.h) \
   /usr/include/features.h \
+    $(wildcard include/config/c95.h) \
     $(wildcard include/config/ix.h) \
     $(wildcard include/config/ix2.h) \
     $(wildcard include/config/ix199309.h) \
@@ -29,22 +30,21 @@ deps_scripts/kconfig/zconf.tab.o := \
     $(wildcard include/config/espaces.h) \
   /usr/include/bits/wordsize.h \
   /usr/include/gnu/stubs.h \
-  /usr/include/gnu/stubs-32.h \
+  /usr/include/gnu/stubs-64.h \
   /usr/include/bits/types.h \
-  /usr/lib/gcc/i386-redhat-linux/4.1.0/include/stddef.h \
   /usr/include/bits/typesizes.h \
   /usr/include/endian.h \
   /usr/include/bits/endian.h \
-  /usr/lib/gcc/i386-redhat-linux/4.1.0/include/stdarg.h \
+  /usr/include/bits/byteswap.h \
+  /usr/lib/gcc/x86_64-redhat-linux/4.3.2/include/stdarg.h \
   /usr/include/stdio.h \
+  /usr/lib/gcc/x86_64-redhat-linux/4.3.2/include/stddef.h \
   /usr/include/libio.h \
     $(wildcard include/config/a.h) \
     $(wildcard include/config/ar/t.h) \
     $(wildcard include/config//io/file.h) \
   /usr/include/_G_config.h \
   /usr/include/wchar.h \
-  /usr/include/bits/wchar.h \
-  /usr/include/gconv.h \
   /usr/include/bits/stdio_lim.h \
   /usr/include/bits/sys_errlist.h \
   /usr/include/bits/stdio.h \
@@ -61,10 +61,9 @@ deps_scripts/kconfig/zconf.tab.o := \
   /usr/include/string.h \
     $(wildcard include/config/ing/inlines.h) \
   /usr/include/bits/string.h \
-    $(wildcard include/config/ing/arch/memset.h) \
-    $(wildcard include/config/ing/arch/strchr.h) \
   /usr/include/bits/string2.h \
-  /usr/lib/gcc/i386-redhat-linux/4.1.0/include/stdbool.h \
+    $(wildcard include/config/ing/arch/strchr.h) \
+  /usr/lib/gcc/x86_64-redhat-linux/4.3.2/include/stdbool.h \
   scripts/kconfig/lkc.h \
   scripts/kconfig/expr.h \
   /usr/include/libintl.h \
@@ -80,8 +79,10 @@ deps_scripts/kconfig/zconf.tab.o := \
   /usr/include/bits/errno.h \
   /usr/include/linux/errno.h \
   /usr/include/asm/errno.h \
-  /usr/lib/gcc/i386-redhat-linux/4.1.0/include/limits.h \
-  /usr/lib/gcc/i386-redhat-linux/4.1.0/include/syslimits.h \
+  /usr/include/asm-generic/errno.h \
+  /usr/include/asm-generic/errno-base.h \
+  /usr/lib/gcc/x86_64-redhat-linux/4.3.2/include/limits.h \
+  /usr/lib/gcc/x86_64-redhat-linux/4.3.2/include/syslimits.h \
   /usr/include/limits.h \
   /usr/include/bits/posix1_lim.h \
   /usr/include/bits/local_lim.h \
