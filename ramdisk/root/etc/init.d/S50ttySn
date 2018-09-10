@@ -1,0 +1,19 @@
+#! /bin/sh
+#. /etc/default/rcS
+
+case "$1" in
+        start|"")
+                if [ "$VERBOSE" != no ]
+                then
+                        echo -n "Initializing ttySn... "
+                fi
+                /flash/ttySn.sh &
+                [ "$VERBOSE" != no ] && echo "done."
+                ;;
+        stop)
+                [ "$VERBOSE" != no ] && echo "done."
+                ;;
+        *)
+                exit 1
+                ;;
+esac

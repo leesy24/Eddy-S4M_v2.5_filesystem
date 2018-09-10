@@ -1,5 +1,5 @@
 IMAGE=ramdisk
-FW_NAME		=	eddy-fs-2.5.1.1.bin
+FW_NAME		=	eddy-fs-2.5.1.3_work.bin
 
 FIRMWARE_DIR	=	../firmware
 
@@ -12,7 +12,8 @@ install:
 	#../tool/genext2fs  -U -b 5110 -d root -D device_table.txt ramdisk
 	#../tool/genext2fs.exe  -U -b 7158 -d root -D device_table.txt ramdisk
 	#../tool/mkcramfs   -q -D device_table.txt root ramdisk
-	../tool/genext2fs.exe  -U -b 10240 -N 1024 -d root -D device_table.txt ramdisk
+	rsync -a --exclude='.gitkeep' root rootfs
+	../tool/genext2fs.exe  -U -b 10240 -N 1024 -d rootfs/root -D device_table.txt ramdisk
 	gzip -vf9 ramdisk
 	test -f ramdisk.gz 
 	../tool/mkimage.exe -A arm -O linux -T ramdisk -C gzip -a 0 -e 0 -n $(FW_NAME) -d ./ramdisk.gz $(FW_NAME) 
