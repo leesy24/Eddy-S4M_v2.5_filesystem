@@ -283,7 +283,7 @@ void get_main()
 		listPutf(list, "WIRELESS_OFF", "");
 		
 		// mcpanic 7613 eth2 -> ETH_NAME
-		strcpy(ifr.ifr_name, SB_WLAN_RA_NAME);
+		strcpy(ifr.ifr_name, "wlan0");
 		fd = socket(AF_INET, SOCK_DGRAM,0);
 	   	ioctl(fd, SIOCGIFHWADDR, &ifr);
 	   	memcpy(&maddr, (struct sockaddr *)&ifr.ifr_hwaddr, sizeof(struct sockaddr));
@@ -296,37 +296,36 @@ void get_main()
 			maddr.sa_data[5]&0xff);
 		listPutf(list, "wifi_macaddr", buff);
 
-		system ("/sbin/iwlist rausb0 channel | grep Current > /var/tmp/iwlist");
+		system ("/sbin/iwlist wlan0 channel | grep Current > /var/tmp/iwlist");
 		SB_ReadConfig ("/var/tmp/iwlist", buff, 1000);
 		SB_getstring (buff, "Frequency:", 22, Get_str);
 		listPutf(list, "wifi_frequency", Get_str);
 		
-		system ("/sbin/iwconfig rausb0 > /var/tmp/iwconfig");
+		system ("/sbin/iwconfig wlan0 > /var/tmp/iwconfig");
 		SB_ReadConfig ("/var/tmp/iwconfig", buff, 1000);
 
 		SB_getstring (buff, "Quality=", 7, Get_str);
 		listPutf(list, "wifi_linkquality", Get_str);
 
-		SB_getstring (buff, "Rate=", 7, Get_str);
+		SB_getstring (buff, "Rate:", 6, Get_str);
 		listPutf(list, "wifi_bitrate", Get_str);
 
-
-		SB_getstring (buff, "Signal level:", 8, Get_str);
+		SB_getstring (buff, "Signal level=", 7, Get_str);
 		listPutf(list, "wifi_signallevel", Get_str);
 
-		SB_getstring (buff, "Noise level:", 8, Get_str);
+		SB_getstring (buff, "Noise level=", 8, Get_str);
 		listPutf(list, "wifi_noiselevel", Get_str);
 
 		SB_getstring (buff, "Point: ", 17, Get_str);
 		listPutf(list, "wifi_accesspoint", Get_str);
 
-		system("/sbin/ifconfig rausb0 | grep addr: > /var/tmp/ifconfig");
+		system("/sbin/ifconfig wlan0 | grep addr: > /var/tmp/ifconfig");//rausb0
 		fd = open("/var/tmp/ifconfig", O_RDONLY);
 		read(fd, buff,sizeof(buff));
 		close(fd);
 		point = strstr(buff, "inet addr:");
-
-		if (point != NULL && strcmp(Get_str, "Null") != 0)
+		
+		if (point != NULL && strcmp(Get_str, "Not-Associated   ") != 0)
 			listPutf(list, "wifi_state", "Connection");
 		else	
 			{
@@ -349,12 +348,12 @@ void get_main()
 			else
 				{
 				memset(buff,0,sizeof(buff));
-				addr.s_addr = SB_GetIp (SB_WLAN_RA_NAME);
+				addr.s_addr = SB_GetIp ("wlan0");
 				strcpy(buff, inet_ntoa(addr));
 				listPutf(list, "wifi_ip", buff);
 			
 				memset(buff,0,sizeof(buff));
-				addr.s_addr = SB_GetMask (SB_WLAN_RA_NAME);
+				addr.s_addr = SB_GetMask ("wlan0");
 				strcpy(buff, inet_ntoa(addr));
 				listPutf(list, "wifi_subnet", buff);
 	
@@ -382,161 +381,6 @@ void get_main()
 			}
 
 
-/*
-Access Point, 
-Frequency
-channel
-bit rete
-Link Qurity
-signal level
-noise level
-
-
-
-1. Access Point 
-	iwconfig rausb0 | grep "Access Point" | cut -d" " -f18 
-2. Frequency 
-	iwlist rausb0 channel | grep "Frequency" | cut -d" " -f12 | cut -d":" -f2 
-3. channel
-	iwconfig rausb0 | grep "Frequency" | cut -d" " -f13 | cut -d"=" -f2 
-3. Bit Rate 
-	iwconfig rausb0 | grep "Bit Rate" | cut -d" " -f12 | cut -d"=" -f2 
-4. Link Quality 
-iwconfig rausb0 | grep "Link Quality" | cut -d" " -f12 
-5. Signal level 
-iwconfig rausb0 | grep " Signal level" | cut -d" " -f15 | cut -d":" -f2 
-6. Noise level 
-iwconfig rausb0 | grep "Noise level" | cut -d" " -f19 | cut -d":" -f2
-
-
-	// mcpanic 7613 added new configuration values
-	// 1. channel info from iwlist
-		system("/sbin/iwlist rausb0 channel | grep Current > /var/tmp/iwlist");
-		fd = open("/var/tmp/iwlist", O_RDONLY);
-		read(fd, buff,sizeof(buff));
-		close(fd);
-		
-		point = strstr(buff, "Current Frequency");
-		if (point == NULL)
-			listPutf(list, "wlan_channel", "Not detected");
-		else
-		{
-			sscanf(buff, "\nCurrent Frequency:%s\n(channel%s)\n", temp2, temp3);
-			temp3[strlen(temp3)-1] = '\0';
-			sprintf(temp1, "%s (Frequency: %s)\n", temp3, temp2);
-			listPutf(list, "wlan_channel", temp1);
-			memset (temp1, 0, strlen(temp1));
-			memset (temp2, 0, strlen(temp2));
-			memset (temp3, 0, strlen(temp3));
-		}
-
-	// rest from iwconfig
-		system("/sbin/iwconfig rausb0 > /var/tmp/iwconfig");
-		fd = open("/var/tmp/iwconfig", O_RDONLY);
-		read(fd,buff,sizeof(buff));
-		close(fd);
-
-		memset (temp1, 0, strlen(temp1));
-		memset (temp1, 0, strlen(temp2));
-		memset (temp1, 0, strlen(temp3));
-
-	// 2. wireless mode
-		point = strstr(buff, "Mode:");
-		if (point == NULL)
-			listPutf(list, "wlan_mode", "Not detected");
-		else
-			{
-			sscanf(point, "Mode:%s\n", temp1);
-			if (strcmp(temp1, "Managed") == 0)
-				listPutf(list, "wlan_mode", "Infrastructure");
-			else
-				listPutf(list, "wlan_mode", temp1);
-			memset (temp1, 0, strlen(temp1));
-			}
-
-	// 3. access point	
-		point = strstr(buff, "Access Point:");
-		if (point == NULL)
-			listPutf(list, "wlan_ap", "No connection");
-		else
-		{
-			sscanf(point, "Access Point:%s\n", temp1);
-			listPutf(list, "wlan_ap", temp1);
-			memset (temp1, 0, strlen(temp1));
-		}
-
-	// 4. bit rate
-		point = strstr(buff, "Bit Rate=");
-		if (point == NULL)
-			listPutf(list, "wlan_rate", "Not detected");
-		else
-		{
-			sscanf(point, "Bit Rate=%s\n", temp1);
-			listPutf(list, "wlan_rate", temp1);
-			memset (temp1, 0, strlen(temp1));
-		}
-
-
-	// 5. RTS Threshold 
-		point = strstr(buff, "RTS thr");
-		if (point == NULL)
-			listPutf(list, "wlan_rtsthr", "Not detected");
-		else
-		{
-			sscanf(point, "RTS thr%s\n", temp1);
-//			temp1[0] = ' ';	// it's either = or :
-			temppoint = &temp1[1];
-			listPutf(list, "wlan_rtsthr", temppoint);
-			memset (temp1, 0, strlen(temp1));
-		}
-	// 6. Fragment Threshold
-		point = strstr(buff, "Fragment thr");
-		if (point == NULL)
-			listPutf(list, "wlan_fragthr", "Not detected");
-		else
-		{
-			sscanf(point, "Fragment thr%s\n", temp1);
-//			temp1[0] = ' ';	// it's either = or :
-			temppoint = &temp1[1];
-			listPutf(list, "wlan_fragthr", temppoint);
-			memset (temp1, 0, strlen(temp1));
-		}
-
-	// 7. Link Quality
-		point = strstr(buff, "Link Quality");
-		if (point == NULL)
-			listPutf(list, "wlan_quality", "Not detected");
-		else
-		{
-			sscanf(point, "Link Quality:%s\n", temp1);
-			listPutf(list, "wlan_quality", temp1);
-			memset (temp1, 0, strlen(temp1));
-		}
-	// 8. Signal level
-		point = strstr(buff, "Signal level");
-		if (point == NULL)
-			listPutf(list, "wlan_signal", "Not detected");
-		else
-		{
-			sscanf(point, "Signal level:%s\n", temp1);
-			sprintf(temp2, "%s dBm", temp1);
-			listPutf(list, "wlan_signal", temp2);
-			memset (temp1, 0, strlen(temp1));
-			memset (temp2, 0, strlen(temp2));
-		}
-	// 9. Noise level
-		point = strstr(buff, "Noise level");
-		if (point == NULL)
-			listPutf(list, "wlan_noise", "Not detected");
-		else
-			{
-			sscanf(point, "Noise level:%s\n", temp1);
-			sprintf(temp2, "%s dBm", temp1);
-			listPutf(list, "wlan_noise", temp2);
-			memset (temp1, 0, strlen(temp1));
-			memset (temp2, 0, strlen(temp2));
-			}
-*/			
 		}
 	else
 		{
@@ -704,78 +548,74 @@ void get_wireless()
 	sprintf(buff,"w_authmode%d",mode);
 	listPutf(list, buff, "selected");
 
+	cgiFormInteger("W_ENCRYPTYPE", &value, wifi_cfg.encryp_type);
+			
 	switch(mode)
 	{
-	case 0:				// open
-	case 1:				// shared
-		listPutf(list,"WPAMODE_START", "<!--");
-		listPutf(list,"WPAMODE_END",   "-->");
-		listPutf(list,"OPENMODE_START","");
-		listPutf(list,"OPENMODE_END",  "");
+	case 0:	// AUTO
+	case 1:	// OPEN
+		listPutf(list,"OPENMODE_START"	,	"");
+		listPutf(list,"SHAREMODE_START"	,	"");
+		listPutf(list,"SHAREMODE_END"	,	"");
+		listPutf(list,"OPENMODE_END"	,	"");
+		listPutf(list,"WPAPSK_START"	,	"<!--");
+		listPutf(list,"WPAPSK_END"		,	"-->");		
+		if(value>2) value = 0;
 		break;
-	case 2:			// WPA-PSK
-	case 3:			// WPA2-PSK
-	case 4 :		// WPA-NONE	
-		listPutf(list,"WPAMODE_START", "");
-		listPutf(list,"WPAMODE_END",   "");
-		listPutf(list,"OPENMODE_START","<!--");
-		listPutf(list,"OPENMODE_END",  "-->");
+	case 2:	// SHARE
+		listPutf(list,"OPENMODE_START"	,	"");
+		listPutf(list,"SHAREMODE_START"	,	"<!--");
+		listPutf(list,"SHAREMODE_END"	,	"-->");
+		listPutf(list,"OPENMODE_END"	,	"");
+		listPutf(list,"WPAPSK_START"	,	"<!--");
+		listPutf(list,"WPAPSK_END"		,	"-->");
+		if(value==0 || value>2) value = 1;
+		break;
+	case 3:	// WPAPSK
+	case 4:	// WPA2PSK
+		listPutf(list,"OPENMODE_START"	,	"<!--");
+		listPutf(list,"OPENMODE_END"	,	"-->");
+		listPutf(list,"WPAPSK_START"	,	"");
+		listPutf(list,"WPAPSK_END"		,	"");
+		if(value<3) value=3;
 		break;
 	}
 
-
-	cgiFormInteger("W_ENCRYPTYPE", &value, wifi_cfg.encryp_type);
 	sprintf(buff,"w_encryptype%d",value);
 	listPutf(list, buff, "selected");
-
-	if (mode > 1 && value < 2) value = 2;
-	if (mode < 2 && value > 1) value = 0;
-
+	
 	switch(value)
-	{
-	case 0:				// none
-		listPutf(list,"color_1","disabled");
-		listPutf(list,"color_2","disabled");
-		listPutf(list,"tkipon","<!--");
-		listPutf(list,"tkipoff","-->");
-		listPutf(list,"wepviewon","<!--");
-		listPutf(list,"wepviewoff","-->");
-		break;
-	case 1:				// wep
-		listPutf(list,"color_2","disabled");
-		listPutf(list,"tkipon","<!--");
-		listPutf(list,"tkipoff","-->");
-		listPutf(list,"wepviewon","");
-		listPutf(list,"wepviewoff","");
+		{
+		case 0:				// none
+			listPutf(list,"NETWORKKEYon"	,"<!--");
+			listPutf(list,"NETWORKKEYoff"	,"-->");		
+			break;
+		case 1:				// wep40
+			listPutf(list,"NETWORKKEYon"	,"");
+			listPutf(list,"KEYLENGTH"		,"10");
+			listPutf(list,"NETWORKKEYoff"	,"");		
+			break;
+		case 2:				// wep104
+			listPutf(list,"NETWORKKEYon"	,"");
+			listPutf(list,"KEYLENGTH"		,"26");
+			listPutf(list,"NETWORKKEYoff"	,"");		
+			break;
+		case 3:				// aes
+		case 4:
+		case 5:
+			listPutf(list,"NETWORKKEYon"	,"");
+			listPutf(list,"KEYLENGTH"		,"38");
+			listPutf(list,"NETWORKKEYoff"	,"");		
+			break;
+		}
 		
-		if ( cgiFormInteger("W_KEYINDEX", &i, 0) != cgiFormSuccess )
-			i = wifi_cfg.key_index;
-		memset(buff,0,sizeof(buff));
-		sprintf(buff,"w_keyindex%d", i);
-		listPutf(list, buff, "selected");
-
-		memset(buff,0,sizeof(buff));
-		if (cgiFormStringNoNewlines("W_KEY1", buff, 38) == cgiFormNotFound)
-			listPutf(list, "w_key1", wifi_cfg.key);
+	memset(buff,0,sizeof(buff));
+	if (cgiFormStringNoNewlines("W_KEY1", buff, 38) == cgiFormNotFound)
+		listPutf(list, "w_key1", wifi_cfg.key);
 		else
-			listPutf(list, "w_key1", buff);
-		break;
-	case 2:			// tkip
-	case 3:			// aes
-		listPutf(list,"color_1","disabled");
-		listPutf(list,"wepviewon","<!--");
-		listPutf(list,"wepviewoff","-->");
-		listPutf(list,"tkipon","");
-		listPutf(list,"tkipoff","");
-
-		memset(buff,0,sizeof(buff));
-		if (cgiFormStringNoNewlines("W_PASSPHRASE", buff, 65) == cgiFormNotFound)
-			listPutf(list, "w_passphrase", wifi_cfg.passphrase);
-		else
-			listPutf(list, "w_passphrase", buff);
-		break;
-	}
-
+		listPutf(list, "w_key1", buff);
+	
+	
 	//Wireless Network Address
 	cgiFormInteger("W_LINE", &mode, wifi_cfg.line);
 	sprintf(buff,"w_line%d",mode);
@@ -785,12 +625,12 @@ void get_wireless()
 		{
 		memset(buff,0,sizeof(buff));
 		listPutf(list, "w_option1", "disabled");
-		addr.s_addr = SB_GetIp (SB_WLAN_RA_NAME);
+		addr.s_addr = SB_GetIp ("wlan0");
 		strcpy(buff, inet_ntoa(addr));
 		listPutf(list, "w_ip", buff);
 		
 		memset(buff,0,sizeof(buff));
-		addr.s_addr = SB_GetMask (SB_WLAN_RA_NAME);
+		addr.s_addr = SB_GetMask ("wlan0");
 		strcpy(buff, inet_ntoa(addr));
 		listPutf(list, "w_mask", buff);
 

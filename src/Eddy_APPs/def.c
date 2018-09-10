@@ -903,7 +903,7 @@ int i,len;
 		return 1;
 		}    
     
-    if (!strncmp("802.11h", gv1, 2 ))
+    /*if (!strncmp("802.11h", gv1, 2 ))
 		{
 		if (!strncmp ("enable", gv2, 2 )) 
 			CFG_WIFI.ieee80211h = SB_ENABLE;
@@ -925,23 +925,23 @@ int i,len;
 	    	else
 	    		return 0;	
 	  	return 1;
-		}    
+		}    */
         
     if (!strncmp("authentication", gv1, 3 ))
 		{
-		if (!strncmp ("open", gv2, 4)) 
+		if (!strncmp ("auto", gv2, 4)) 
 			CFG_WIFI.auth_mode = 0;
 	    else
-	    	if (!strncmp ("shared", gv2, 4 )) 
+	    	if (!strncmp ("open", gv2, 4 )) 
 	    		CFG_WIFI.auth_mode = 1;
 	    	else
-	    		if (!strncmp ("wpa-psk", gv2, 5 )) 
+	    		if (!strncmp ("share", gv2, 5 )) 
 	    			CFG_WIFI.auth_mode = 2;
 	    		else
-	    			if (!strncmp ("wpa2-psk", gv2, 5)) 
+	    			if (!strncmp ("wpapsk", gv2, 5)) 
 	    				CFG_WIFI.auth_mode = 3;	
 	    			else
-	    				if (!strncmp ("wpa-none", gv2, 5 )) 
+	    				if (!strncmp ("wpa2psk", gv2, 5 )) 
 	    					CFG_WIFI.auth_mode = 4;	
 	    				else
 	    					return 0;	
@@ -953,15 +953,21 @@ int i,len;
 		if (!strncmp ("none", gv2, 4)) 
 			CFG_WIFI.encryp_type = 0;
 	    else
-	    	if (!strncmp ("wep", gv2, 4 )) 
+	    	if (!strncmp ("wep64", gv2, 4 )) 
 	    		CFG_WIFI.encryp_type = 1;
 	    	else
-	    		if (!strncmp ("tkip", gv2, 3 )) 
+	    		if (!strncmp ("wep128", gv2, 4 )) 
 	    			CFG_WIFI.encryp_type = 2;
 	    		else
-	    			if (!strncmp ("aes", gv2, 3)) 
+	    			if (!strncmp ("tkip", gv2, 4)) 
 	    				CFG_WIFI.encryp_type = 3;	
 	    				else
+						if (!strncmp ("aes", gv2, 3)) 
+							CFG_WIFI.encryp_type = 4;	
+							else
+							if (!strncmp ("tkip/aes", gv2, 5)) 
+								CFG_WIFI.encryp_type = 5;	
+								else							
 	    					return 0;	
 	  	return 1;
 		}      
@@ -1429,10 +1435,10 @@ void help()
 	printf("def wifi bitrate        <auto, 1, 2, 5, 6, 9, 11, 12, 18, 24, 36, 48, 54>\n");
 	printf("def wifi rts            <1 ~ 2347>\n" );
 	printf("def wifi fragment       <256 ~ 2346>\n" );
-	printf("def wifi 802.11h        <enable, disable>\n");
-	printf("def wifi roamming       <enable, disable>\n");
-	printf("def wifi authentication <open, shared, wpa-psk, wpa2-psk, wpa-none>\n");
-	printf("def wifi encryption     <none, wep, tkip, aes>\n");
+	//printf("def wifi 802.11h        <enable, disable>\n");
+	//printf("def wifi roamming       <enable, disable>\n");
+	printf("def wifi authentication <auto, open, share, wpapsk, wpa2psk>\n");
+	printf("def wifi encryption     <none, wep64, wep128, tkip, aes, tkip/aes>\n");
 	printf("def wifi keyindex       <1 ~ 4>\n");
 	printf("def wifi key            <wep key string>\n");
 	printf("def wifi password       <wpa password string>\n");
@@ -1525,26 +1531,27 @@ union { char c[4]; unsigned int i; } q;
 	printf("Bit Rate           : %s\n", buf);
 	printf("RTS Threshold      : %d\n", CFG_WIFI.rts_thr);
 	printf("Fragment Threshold : %d\n", CFG_WIFI.frag_thr);
-	printf("802.11h Support    : %s\n", (CFG_WIFI.ieee80211h == 0) ? "Disable" : "Enable");
-	printf("Roaming            : %s\n", (CFG_WIFI.roaming_mode == 0) ? "Disable" : "Enable");	
-	printf("Roaming Threshold  : %d\n", CFG_WIFI.roaming_threshold);
+	//printf("802.11h Support    : %s\n", (CFG_WIFI.ieee80211h == 0) ? "Disable" : "Enable");
+	//printf("Roaming            : %s\n", (CFG_WIFI.roaming_mode == 0) ? "Disable" : "Enable");	
+	//printf("Roaming Threshold  : %d\n", CFG_WIFI.roaming_threshold);
 	
 	switch (CFG_WIFI.auth_mode)	{
-		case 0 : strcpy (buf, "Open"); break;
-		case 1 : strcpy (buf, "Shared"); break;	
-		case 2 : strcpy (buf, "WPA-PSK"); break;	
-		case 3 : strcpy (buf, "WPA2-PSK"); break;	
-		case 4 : strcpy (buf, "WPA-NONE"); break;	}
+		case 0 : strcpy (buf, "Auto"); break;
+		case 1 : strcpy (buf, "Open"); break;	
+		case 2 : strcpy (buf, "Share"); break;	
+		case 3 : strcpy (buf, "WPAPSK"); break;	
+		case 4 : strcpy (buf, "WPA2PSK"); break;	}
 	printf("Authentication     : %s\n", buf);	
 	
 	switch (CFG_WIFI.encryp_type)	{
 		case 0 : strcpy (buf, "None"); break;
-		case 1 : strcpy (buf, "WEP"); break;	
-		case 2 : strcpy (buf, "TKIP"); break;	
-		case 3 : strcpy (buf, "AES"); break;	}
+		case 1 : strcpy (buf, "WEP64"); break;	
+		case 2 : strcpy (buf, "WEP128"); break;	
+		case 3 : strcpy (buf, "TKIP"); break;	
+		case 4 : strcpy (buf, "AES"); break;
+		case 5 : strcpy (buf, "TKIP/AES"); break;}
 	printf("Encryption         : %s\n", buf);	
-	printf("Open/Shared Key    : %d (%s)\n", CFG_WIFI.key_index+1, CFG_WIFI.key);	
-	printf("TKIP/AES Password  : %s\n", CFG_WIFI.passphrase);
+	printf("NETWORK Key    : %s\n", CFG_WIFI.key);	
 	
 	printf("Connection Type    : %s\n", (CFG_WIFI.line == 0) ? "DHCP" : "Static IP");
 			

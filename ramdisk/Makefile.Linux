@@ -1,5 +1,5 @@
 IMAGE=ramdisk
-FW_NAME		=	eddy-fs-2.5.1.2.bin
+FW_NAME		=	eddy-fs-2.5.1.1.bin
 
 FIRMWARE_DIR	=	../firmware
 

@@ -18,7 +18,7 @@ TARGET		=	eddy					pinetd						def						\
 				test_spi_eeprom			test_tcp_server				test_tcp_client			\
 				test_serial				test_read_config			test_serial_to_lan-2	\
 				test_serial_to_lan-1	test_udp_server				test_udp_client			\
-				testdk		
+				testdk					nand_erase
 				
 LIBS		=   -lrt SB_APIs/SB_APIs.a
 
@@ -167,6 +167,11 @@ upgradetftp : upgradetftp.o
 rt_test : rt_test.o 
 	rm -f $@
 	$(CC) $(CFLAGS) $(LDFLAGS) $(IFLAGS) -o $@  $@.o $(LIBS)
+	$(STRIP) $@
+
+nand_erase : nand_erase.o 
+	rm -f $@
+	$(CC) $(CFLAGS) $(LDFLAGS) $(IFLAGS) -o $@  $@.o 
 	$(STRIP) $@
 
 clean: 

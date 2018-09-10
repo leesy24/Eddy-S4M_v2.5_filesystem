@@ -1,0 +1,112 @@
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull   -c -o eddy.o eddy.c
+rm -f eddy
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull -L/opt/lemonix/cdt/lib -L/opt/lemonix/cdt/bin -I/opt/lemonix/cdt/include  -I./include -o eddy  eddy.o
+/opt/lemonix/cdt/bin/arm-linux-strip eddy
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull   -c -o pinetd.o pinetd.c
+rm -f pinetd
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull -L/opt/lemonix/cdt/lib -L/opt/lemonix/cdt/bin -I/opt/lemonix/cdt/include  -I./include -o pinetd  pinetd.o  -lrt SB_APIs/SB_APIs.a
+/opt/lemonix/cdt/bin/arm-linux-strip pinetd
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull   -c -o def.o def.c
+rm -f def
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull -L/opt/lemonix/cdt/lib -L/opt/lemonix/cdt/bin -I/opt/lemonix/cdt/include  -I./include  -o def  def.o  -lrt SB_APIs/SB_APIs.a
+/opt/lemonix/cdt/bin/arm-linux-strip def
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull   -c -o ddns_agent.o ddns_agent.c
+rm -f ddns_agent
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull -L/opt/lemonix/cdt/lib -L/opt/lemonix/cdt/bin -I/opt/lemonix/cdt/include  -I./include -o ddns_agent  ddns_agent.o -lrt SB_APIs/SB_APIs.a
+/opt/lemonix/cdt/bin/arm-linux-strip ddns_agent
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull   -c -o upgrade.o upgrade.c
+rm -f upgrade
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull -L/opt/lemonix/cdt/lib -L/opt/lemonix/cdt/bin -I/opt/lemonix/cdt/include  -I./include -o upgrade  upgrade.o 
+/opt/lemonix/cdt/bin/arm-linux-strip upgrade
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull   -c -o upgradetftp.o upgradetftp.c
+rm -f upgradetftp
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull -L/opt/lemonix/cdt/lib -L/opt/lemonix/cdt/bin -I/opt/lemonix/cdt/include  -I./include -o upgradetftp  upgradetftp.o 
+/opt/lemonix/cdt/bin/arm-linux-strip upgradetftp
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull   -c -o wifi.o wifi.c
+rm -f wifi
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull -L/opt/lemonix/cdt/lib -L/opt/lemonix/cdt/bin -I/opt/lemonix/cdt/include  -I./include -o wifi  wifi.o  -lrt SB_APIs/SB_APIs.a
+/opt/lemonix/cdt/bin/arm-linux-strip wifi
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull   -c -o test_nand.o test_nand.c
+rm -f test_nand
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull -L/opt/lemonix/cdt/lib -L/opt/lemonix/cdt/bin -I/opt/lemonix/cdt/include  -I./include  -o test_nand  test_nand.o
+/opt/lemonix/cdt/bin/arm-linux-strip test_nand
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull   -c -o test_mmc.o test_mmc.c
+rm -f test_mmc
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull -L/opt/lemonix/cdt/lib -L/opt/lemonix/cdt/bin -I/opt/lemonix/cdt/include  -I./include  -o test_mmc  test_mmc.o
+/opt/lemonix/cdt/bin/arm-linux-strip test_mmc
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull   -c -o test_rtc.o test_rtc.c
+rm -f test_rtc
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull -L/opt/lemonix/cdt/lib -L/opt/lemonix/cdt/bin -I/opt/lemonix/cdt/include  -I./include  -o test_rtc  test_rtc.o
+/opt/lemonix/cdt/bin/arm-linux-strip test_rtc
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull   -c -o test_sio.o test_sio.c
+rm -f test_sio
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull -L/opt/lemonix/cdt/lib -L/opt/lemonix/cdt/bin -I/opt/lemonix/cdt/include  -I./include  -o test_sio  test_sio.o  -lrt SB_APIs/SB_APIs.a
+/opt/lemonix/cdt/bin/arm-linux-strip test_sio
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull   -c -o test_adc.o test_adc.c
+rm -f test_adc
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull -L/opt/lemonix/cdt/lib -L/opt/lemonix/cdt/bin -I/opt/lemonix/cdt/include  -I./include  -o test_adc  test_adc.o  -lrt SB_APIs/SB_APIs.a
+/opt/lemonix/cdt/bin/arm-linux-strip test_adc
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull   -c -o test_gpio_led.o test_gpio_led.c
+rm -f test_gpio_led
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull -L/opt/lemonix/cdt/lib -L/opt/lemonix/cdt/bin -I/opt/lemonix/cdt/include  -I./include  -o test_gpio_led  test_gpio_led.o  -lrt SB_APIs/SB_APIs.a
+/opt/lemonix/cdt/bin/arm-linux-strip test_gpio_led
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull   -c -o test_keypad.o test_keypad.c
+rm -f test_keypad
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull -L/opt/lemonix/cdt/lib -L/opt/lemonix/cdt/bin -I/opt/lemonix/cdt/include  -I./include  -o test_keypad  test_keypad.o 
+/opt/lemonix/cdt/bin/arm-linux-strip test_keypad
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull   -c -o test_lcd.o test_lcd.c
+rm -f test_lcd
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull -L/opt/lemonix/cdt/lib -L/opt/lemonix/cdt/bin -I/opt/lemonix/cdt/include  -I./include  -o test_lcd  test_lcd.o 
+/opt/lemonix/cdt/bin/arm-linux-strip test_lcd
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull   -c -o test_dio.o test_dio.c
+rm -f test_dio
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull -L/opt/lemonix/cdt/lib -L/opt/lemonix/cdt/bin -I/opt/lemonix/cdt/include  -I./include  -o test_dio  test_dio.o 
+/opt/lemonix/cdt/bin/arm-linux-strip test_dio
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull   -c -o test_gpio_pin.o test_gpio_pin.c
+rm -f test_gpio_pin
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull -L/opt/lemonix/cdt/lib -L/opt/lemonix/cdt/bin -I/opt/lemonix/cdt/include  -I./include  -o test_gpio_pin  test_gpio_pin.o 
+/opt/lemonix/cdt/bin/arm-linux-strip test_gpio_pin
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull   -c -o test_bluetooth.o test_bluetooth.c
+rm -f test_bluetooth
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull -L/opt/lemonix/cdt/lib -L/opt/lemonix/cdt/bin -I/opt/lemonix/cdt/include  -I./include -o test_bluetooth  test_bluetooth.o  -lrt SB_APIs/SB_APIs.a 
+/opt/lemonix/cdt/bin/arm-linux-strip test_bluetooth
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull   -c -o test_spi_eeprom.o test_spi_eeprom.c
+rm -f test_spi_eeprom
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull -L/opt/lemonix/cdt/lib -L/opt/lemonix/cdt/bin -I/opt/lemonix/cdt/include  -I./include  -o test_spi_eeprom  test_spi_eeprom.o 
+/opt/lemonix/cdt/bin/arm-linux-strip test_spi_eeprom
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull   -c -o test_tcp_server.o test_tcp_server.c
+rm -f test_tcp_server
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull -L/opt/lemonix/cdt/lib -L/opt/lemonix/cdt/bin -I/opt/lemonix/cdt/include  -I./include -o test_tcp_server  test_tcp_server.o  -lrt SB_APIs/SB_APIs.a 
+/opt/lemonix/cdt/bin/arm-linux-strip test_tcp_server
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull   -c -o test_tcp_client.o test_tcp_client.c
+rm -f test_tcp_client
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull -L/opt/lemonix/cdt/lib -L/opt/lemonix/cdt/bin -I/opt/lemonix/cdt/include  -I./include -o test_tcp_client  test_tcp_client.o  -lrt SB_APIs/SB_APIs.a 
+/opt/lemonix/cdt/bin/arm-linux-strip test_tcp_client
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull   -c -o test_serial.o test_serial.c
+rm -f test_serial
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull -L/opt/lemonix/cdt/lib -L/opt/lemonix/cdt/bin -I/opt/lemonix/cdt/include  -I./include -o test_serial  test_serial.o  -lrt SB_APIs/SB_APIs.a 
+/opt/lemonix/cdt/bin/arm-linux-strip test_serial
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull   -c -o test_read_config.o test_read_config.c
+rm -f test_read_config
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull -L/opt/lemonix/cdt/lib -L/opt/lemonix/cdt/bin -I/opt/lemonix/cdt/include  -I./include -o test_read_config  test_read_config.o  -lrt SB_APIs/SB_APIs.a 
+/opt/lemonix/cdt/bin/arm-linux-strip test_read_config
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull   -c -o test_serial_to_lan-2.o test_serial_to_lan-2.c
+rm -f test_serial_to_lan-2
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull -L/opt/lemonix/cdt/lib -L/opt/lemonix/cdt/bin -I/opt/lemonix/cdt/include  -I./include -o test_serial_to_lan-2  test_serial_to_lan-2.o  -lrt SB_APIs/SB_APIs.a
+/opt/lemonix/cdt/bin/arm-linux-strip test_serial_to_lan-2
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull   -c -o test_serial_to_lan-1.o test_serial_to_lan-1.c
+rm -f test_serial_to_lan-1
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull -L/opt/lemonix/cdt/lib -L/opt/lemonix/cdt/bin -I/opt/lemonix/cdt/include  -I./include -o test_serial_to_lan-1  test_serial_to_lan-1.o  -lrt SB_APIs/SB_APIs.a 
+/opt/lemonix/cdt/bin/arm-linux-strip test_serial_to_lan-1
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull   -c -o test_udp_server.o test_udp_server.c
+rm -f test_udp_server
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull -L/opt/lemonix/cdt/lib -L/opt/lemonix/cdt/bin -I/opt/lemonix/cdt/include  -I./include -o test_udp_server  test_udp_server.o  -lrt SB_APIs/SB_APIs.a 
+/opt/lemonix/cdt/bin/arm-linux-strip test_udp_server
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull   -c -o test_udp_client.o test_udp_client.c
+rm -f test_udp_client
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull -L/opt/lemonix/cdt/lib -L/opt/lemonix/cdt/bin -I/opt/lemonix/cdt/include  -I./include -o test_udp_client  test_udp_client.o  -lrt SB_APIs/SB_APIs.a 
+/opt/lemonix/cdt/bin/arm-linux-strip test_udp_client
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull   -c -o testdk.o testdk.c
+rm -f testdk
+/opt/lemonix/cdt/bin/arm-linux-gcc  -O2 -g  -Wall -Wno-nonnull -L/opt/lemonix/cdt/lib -L/opt/lemonix/cdt/bin -I/opt/lemonix/cdt/include  -I./include  -o testdk  testdk.o 
+/opt/lemonix/cdt/bin/arm-linux-strip testdk

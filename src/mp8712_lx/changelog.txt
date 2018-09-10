@@ -1,0 +1,33 @@
+Changes:
+
+(2010/04/12)
+V2.3.0 to V2.3.1
+_____________
+	- Fix Packet RX switch antenna problem
+
+(2010/03/23)
+V2.2.0 to V2.3.0
+_____________
+	- Add eFuse function "rthermal" to read thermal meter from hardware.
+	  Need 8712 driver svn revision 600 and later.
+	- Modify EMI function "pktrx", add parameter "antenna" to select rx antenna.
+
+(2010/01/20)
+V2.1.0 to V2.2.0
+_____________
+	- Add parameter '-c' to execute signle command for Register IO.
+
+(2009/12/30)
+V2.0.1 to V2.1.0
+_____________
+	- Add single carrier tx function for checking center frequency.
+
+
+(2009/12/24)
+V2.0.0 to V2.0.1
+_____________
+	- Add carrier suppression tx function to EMI functions
+	- Modify packet rx result display style. The result display at the same position.
+	- Packet rx is a block function now. After quiting packet rx, it will stop automatically, no need to stop it manually.
+	- Fix setrate can't accepte value '0'. 
+	- Need RTL8712S Driver version v2.6.0005.20091224(r432) or above.

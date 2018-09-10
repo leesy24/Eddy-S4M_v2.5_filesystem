@@ -1,0 +1,19 @@
+#!/bin/sh
+insmod /etc/drivers/8712u.ko
+sleep 1
+ifconfig wlan0 up
+sleep 1
+wpa_supplicant -Dwext -iwlan0 -c /etc/wpa.conf -B
+sleep 1
+wpa_cli -p/var/run/wpa_supplicant ap_scan 1
+wpa_cli -p/var/run/wpa_supplicant add_network
+wpa_cli -p/var/run/wpa_supplicant set_network 0 ssid '"wifitest"'
+wpa_cli -p/var/run/wpa_supplicant set_network 0 key_mgmt NONE
+wpa_cli -p/var/run/wpa_supplicant set_network 0 wep_key0 1234567890
+wpa_cli -p/var/run/wpa_supplicant set_network 0 wep_tx_keyidx 0
+wpa_cli -p/var/run/wpa_supplicant select_network 0
+sleep 2
+/sbin/udhcpc -i wlan0
+sleep 1
+ifconfig
+iwconfig

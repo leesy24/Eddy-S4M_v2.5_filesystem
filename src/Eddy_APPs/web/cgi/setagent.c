@@ -305,6 +305,7 @@ struct	SB_SYSTEM_CONFIG	cfg;
     else		// CGI
     	{
 	   fflush(0);
+	   fprintf(cgiOut, "\n");
 	   fprintf(cgiOut, "<html>\n<head>\n");
 	   fprintf(cgiOut, "<meta http-equiv='refresh' content='0; URL=%s'>\n", target_page);
 	   fprintf(cgiOut, "</head>\n</html>\n");
@@ -668,10 +669,17 @@ void set_wireless()
 	cgiFormInteger("W_ENCRYPTYPE", &value, cfg.encryp_type);
 	cfg.encryp_type = value;
 	ret = value;
+	
+	
+	
 	switch(ret)
 	{
 		case 0:
 		case 1:
+		case 2:
+		case 3:
+		case 4:
+		case 5:
 			cgiFormInteger("W_KEYINDEX", &value, cfg.key_index);
 			cfg.key_index = value;
 
@@ -684,8 +692,8 @@ void set_wireless()
 					sprintf(cfg.key, "%s", buff);
 			}
 			break;
-		case 2:
-		case 3:
+
+			/*
 			memset (buff, 0, 256);
 			if (cgiFormStringNoNewlines("W_PASSPHRASE", buff, 65) != cgiFormNotFound)
 			{
@@ -694,7 +702,7 @@ void set_wireless()
 				else
 					sprintf(cfg.passphrase, "%s", buff);
 			}
-			break;
+			break;*/
 
 		default:
 			break;
