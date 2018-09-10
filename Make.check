@@ -1,0 +1,11 @@
+
+##
+##	Make.check: Check points for GSIM build
+##
+
+## Check Environment Variables
+ifneq ($(TARGET_BOARD),eddy)
+  $(error "Environment check FAILED. Run . Env.sh")
+endif
+
+

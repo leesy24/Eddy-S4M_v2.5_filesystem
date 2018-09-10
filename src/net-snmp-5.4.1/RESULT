@@ -1,0 +1,49 @@
+mibgroup/utilities/iquery.c: In function 'netsnmp_iquery_session':
+mibgroup/utilities/iquery.c:156: warning: passing argument 1 of 'memdup' from incompatible pointer type
+agent/extend.c: In function '_extend_find_entry':
+agent/extend.c:1239: warning: passing argument 2 of 'snmp_set_var_value' from incompatible pointer type
+disman/event/mteObjects.c: In function '_init_default_mteObject':
+disman/event/mteObjects.c:50: warning: passing argument 2 of 'mteObjects_addOID' discards qualifiers from pointer target type
+disman/event/mteObjects.c:50: warning: passing argument 4 of 'mteObjects_addOID' discards qualifiers from pointer target type
+host/hr_device.c: In function 'var_hrdevice':
+host/hr_device.c:246: warning: assignment discards qualifiers from pointer target type
+util_funcs.c: In function 'restart_doit':
+util_funcs.c:698: warning: 'sigsetmask' is deprecated (declared at /opt/lemonix/cdt/bin/../lib/gcc/arm-linux-gnueabi/4.1.1/../../../../arm-linux-gnueabi/include/signal.h:184)
+if-mib/data_access/interface.c: In function '_free_interface_config':
+if-mib/data_access/interface.c:756: warning: passing argument 1 of 'free' discards qualifiers from pointer target type
+snmpd.c: In function 'main':
+snmpd.c:944: warning: assignment discards qualifiers from pointer target type
+snmptrapd_log.c: In function 'realloc_handle_ent_fmt':
+snmptrapd_log.c:876: warning: passing argument 5 of 'sprint_realloc_objid' from incompatible pointer type
+Warning: -L../../snmplib/.libs changed to -L/opt/eddy_DK_20c/src/net-snmp-5.4.1/perl/default_store/../../snmplib/.libs
+Warning: -L../../snmplib/ changed to -L/opt/eddy_DK_20c/src/net-snmp-5.4.1/perl/default_store/../../snmplib/
+Warning: -L../../snmplib/.libs changed to -L/opt/eddy_DK_20c/src/net-snmp-5.4.1/perl/ASN/../../snmplib/.libs
+Warning: -L../../snmplib/ changed to -L/opt/eddy_DK_20c/src/net-snmp-5.4.1/perl/ASN/../../snmplib/
+Warning: -L../../snmplib/.libs changed to -L/opt/eddy_DK_20c/src/net-snmp-5.4.1/perl/OID/../../snmplib/.libs
+Warning: -L../../snmplib/ changed to -L/opt/eddy_DK_20c/src/net-snmp-5.4.1/perl/OID/../../snmplib/
+Warning: -L../../snmplib/.libs changed to -L/opt/eddy_DK_20c/src/net-snmp-5.4.1/perl/agent/../../snmplib/.libs
+Warning: -L../../snmplib/ changed to -L/opt/eddy_DK_20c/src/net-snmp-5.4.1/perl/agent/../../snmplib/
+Warning: -L../../agent/.libs changed to -L/opt/eddy_DK_20c/src/net-snmp-5.4.1/perl/agent/../../agent/.libs
+Warning: -L../../agent/ changed to -L/opt/eddy_DK_20c/src/net-snmp-5.4.1/perl/agent/../../agent/
+Warning: -L../../agent/helpers/.libs changed to -L/opt/eddy_DK_20c/src/net-snmp-5.4.1/perl/agent/../../agent/helpers/.libs
+Warning: -L../../agent/helpers/ changed to -L/opt/eddy_DK_20c/src/net-snmp-5.4.1/perl/agent/../../agent/helpers/
+Warning: -L../../../snmplib/.libs changed to -L/opt/eddy_DK_20c/src/net-snmp-5.4.1/perl/agent/default_store/../../../snmplib/.libs
+Warning: -L../../../snmplib/ changed to -L/opt/eddy_DK_20c/src/net-snmp-5.4.1/perl/agent/default_store/../../../snmplib/
+Warning: -L../../snmplib/.libs changed to -L/opt/eddy_DK_20c/src/net-snmp-5.4.1/perl/SNMP/../../snmplib/.libs
+Warning: -L../../snmplib/ changed to -L/opt/eddy_DK_20c/src/net-snmp-5.4.1/perl/SNMP/../../snmplib/
+Warning: prerequisite NetSNMP::OID 5.02 not found.
+Warning: -L../../apps/.libs changed to -L/opt/eddy_DK_20c/src/net-snmp-5.4.1/perl/TrapReceiver/../../apps/.libs
+Warning: -L../../apps changed to -L/opt/eddy_DK_20c/src/net-snmp-5.4.1/perl/TrapReceiver/../../apps
+Warning: -L../../agent/.libs changed to -L/opt/eddy_DK_20c/src/net-snmp-5.4.1/perl/TrapReceiver/../../agent/.libs
+Warning: -L../../agent changed to -L/opt/eddy_DK_20c/src/net-snmp-5.4.1/perl/TrapReceiver/../../agent
+Warning: -L../../agent/helpers/.libs changed to -L/opt/eddy_DK_20c/src/net-snmp-5.4.1/perl/TrapReceiver/../../agent/helpers/.libs
+Warning: -L../../agent/helpers changed to -L/opt/eddy_DK_20c/src/net-snmp-5.4.1/perl/TrapReceiver/../../agent/helpers
+Warning: -L../../snmplib/.libs changed to -L/opt/eddy_DK_20c/src/net-snmp-5.4.1/perl/TrapReceiver/../../snmplib/.libs
+Warning: -L../../snmplib changed to -L/opt/eddy_DK_20c/src/net-snmp-5.4.1/perl/TrapReceiver/../../snmplib
+/usr/bin/ld: skipping incompatible /opt/eddy_DK_20c/src/net-snmp-5.4.1/perl/default_store/../../snmplib/.libs/libnetsnmp.so when searching for -lnetsnmp
+/usr/bin/ld: skipping incompatible /opt/eddy_DK_20c/src/net-snmp-5.4.1/perl/default_store/../../snmplib/.libs/libnetsnmp.a when searching for -lnetsnmp
+/usr/bin/ld: cannot find -lnetsnmp
+collect2: ld returned 1 exit status
+make[2]: *** [../blib/arch/auto/NetSNMP/default_store/default_store.so] Error 1
+make[1]: *** [subdirs] Error 2
+make: *** [perlmodules] Error 1

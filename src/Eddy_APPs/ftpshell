@@ -1,0 +1,16 @@
+#!/bin/sh
+Username=eddy
+Filename=$2
+Server=$1
+Directory="/tmp"
+Password="99999999"
+ftp -n $Server <<End-Of-Session
+user $Username $Password
+binary
+cd $Directory
+lcd .
+del $Filename
+put $Filename
+bye
+End-Of-Session
+exit 0

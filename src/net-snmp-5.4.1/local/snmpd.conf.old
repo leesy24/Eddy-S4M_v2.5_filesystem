@@ -1,0 +1,91 @@
+###########################################################################
+#
+# snmpd.conf
+#
+#   - created by the snmpconf configuration program
+#
+###########################################################################
+# SECTION: Agent Operating Mode
+#
+#   This section defines how the agent will operate when it
+#   is running.
+
+# master: Should the agent operate as a master agent or not.
+#   Currently, the only supported master agent type for this token
+#   is "agentx".
+#   
+#   arguments: (on|yes|agentx|all|off|no)
+
+#master  yes
+
+# agentuser: The system user that the agent runs as.
+#   arguments: name|#uid
+
+agentuser  eddy
+agentuser  root
+
+# agentgroup: The system group that the agent runs as.
+#   arguments: group|#GID
+
+agentgroup  root
+
+# agentaddress: The IP address and port number that the agent will listen on.
+#   By default the agent listens to any and all traffic from any
+#   interface on the default SNMP port (161).  This allows you to
+#   specify which address, interface, transport type and port(s) that you
+#   want the agent to listen on.  Multiple definitions of this token
+#   are concatenated together (using ':'s).
+#   arguments: [transport:]port[@interface/address],...
+
+#agentaddress  
+
+
+
+
+
+
+###########################################################################
+# SECTION: Access Control Setup
+#
+#   This section defines who is allowed to talk to your running
+#   snmp agent.
+
+# rwuser: a SNMPv3 read-write user
+#   arguments:  user [noauth|auth|priv] [restriction_oid]
+
+rwuser  root noauth 
+
+# rwcommunity: a SNMPv1/SNMPv2c read-write access community name
+#   arguments:  community [default|hostname|network/bits] [oid]
+
+rwcommunity  public  
+
+
+
+
+
+
+###########################################################################
+# SECTION: Monitor Various Aspects of the Running Host
+#
+#   The following check up on various aspects of a host.
+
+# proc: Check for processes that should be running.
+#     proc NAME [MAX=0] [MIN=0]
+#   
+#     NAME:  the name of the process to check for.  It must match
+#            exactly (ie, http will not find httpd processes).
+#     MAX:   the maximum number allowed to be running.  Defaults to 0.
+#     MIN:   the minimum number to be running.  Defaults to 0.
+#   
+#   The results are reported in the prTable section of the UCD-SNMP-MIB tree
+#   Special Case:  When the min and max numbers are both 0, it assumes
+#   you want a max of infinity and a min of 1.
+
+#proc    0
+
+
+
+
+
+

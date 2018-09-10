@@ -1,0 +1,5 @@
+#!/bin/sh
+
+insmod /etc/drivers/dm9000.ko
+ifconfig eth1 hw ether 12:13:25:46:47
+ifconfig eth1 10.10.1.1 netmask 255.255.255.0 up

@@ -1,0 +1,8 @@
+make clean
+
+CC=/opt/lemonix/cdt/bin/arm-linux-gcc ./configure --host=arm-linux --target=arm-linux --with-endianness=little --disable-embedded-perl --enable-mini-agent --enable-shared=no --disable-debugging --disable-applications --disable-manuals --with-cflags=-I/home/WORK/eddy-21/filesystem-2.1.0.1/src/Eddy_APPs/include --with-mib-modules="rs232 sysbas mibII sendtrap"
+
+make
+
+/opt/lemonix/cdt/bin/arm-linux-strip agent/snmp
+

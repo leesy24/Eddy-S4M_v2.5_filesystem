@@ -1,0 +1,1 @@
+#define CONFIG_PREFIX "$$ROOT_FS_DIR"

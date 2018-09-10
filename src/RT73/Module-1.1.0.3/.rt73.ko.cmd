@@ -1,0 +1,1 @@
+cmd_/home/WORK/eddy-21/filesystem_2.1.0.3/src/RT73/Module-1.1.0.3/rt73.ko := /opt/lemonix/cdt/bin/arm-linux-ld  -r -o /home/WORK/eddy-21/filesystem_2.1.0.3/src/RT73/Module-1.1.0.3/rt73.ko /home/WORK/eddy-21/filesystem_2.1.0.3/src/RT73/Module-1.1.0.3/rt73.o /home/WORK/eddy-21/filesystem_2.1.0.3/src/RT73/Module-1.1.0.3/rt73.mod.o

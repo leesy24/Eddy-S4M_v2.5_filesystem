@@ -1,0 +1,16 @@
+This file contains any messages produced by compilers while
+running configure, to aid debugging if configure makes a mistake.
+
+configure:573: checking host system type
+configure:594: checking target system type
+configure:612: checking build system type
+configure:638: checking for gcc
+configure:751: checking whether the C compiler (arm-linux-gcc  ) works
+configure:767: arm-linux-gcc -o conftest    conftest.c  1>&5
+./configure: line 768: arm-linux-gcc: command not found
+configure: failed program was:
+
+#line 762 "configure"
+#include "confdefs.h"
+
+main(){return(0);}

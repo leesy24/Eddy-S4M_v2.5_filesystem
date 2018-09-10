@@ -1,0 +1,11 @@
+  SNMP Versions Supported:    1 2c 3
+  Net-SNMP Version:           5.4.1
+  Building for:               linux
+  Network transport support:  Callback Unix TCP UDP
+  SNMPv3 Security Modules:     usm
+  Agent MIB code:             rs232 sysbas mibII sendtrap default_modules =>  rs232/rs232_access rs232/rs232_checkfns_local rs232/rs232_checkfns rs232/rs232 sysbas/sysbas_access sysbas/sysbas_checkfns_local sysbas/sysbas_checkfns sysbas/sysbas mibII/system_mib mibII/sysORTable mibII/at mibII/ifTable mibII/ip mibII/snmp_mib mibII/tcp mibII/icmp mibII/udp mibII/vacm_vars mibII/setSerialNo if-mib ip-mib ip-forward-mib tcp-mib udp-mib sendtrap/notification snmpv3mibs mibII/snmp_mib mibII/system_mib mibII/sysORTable mibII/vacm_vars utilities/execute
+  Embedded Perl support:      disabled
+  SNMP Perl modules:          disabled
+  SNMP Python modules:        disabled
+  Authentication support:     MD5
+  Encryption support:         

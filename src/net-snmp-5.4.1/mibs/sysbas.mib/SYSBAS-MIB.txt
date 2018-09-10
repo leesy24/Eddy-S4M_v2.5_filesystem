@@ -1,0 +1,949 @@
+SYSBAS-MIB	DEFINITIONS ::= BEGIN
+	IMPORTS
+		MacAddress, TruthValue, RowStatus
+			FROM SNMPv2-TC
+		transmission
+			FROM RFC1213-MIB
+		OBJECT-GROUP, MODULE-COMPLIANCE
+			FROM SNMPv2-CONF
+		InterfaceIndex
+			FROM IF-MIB
+		dod, internet, enterprises, MODULE-IDENTITY, OBJECT-TYPE, IpAddress, Integer32, Counter32, NOTIFICATION-TYPE
+			FROM SNMPv2-SMI;
+
+	sysbas	MODULE-IDENTITY
+		LAST-UPDATED	"200804081704Z"
+		ORGANIZATION	"SystemBase Co., Ltd."
+		CONTACT-INFO	"tech@sysbas.com"
+		DESCRIPTION		"MIB for SystemBase device servers"
+		REVISION		"200804081704Z"
+		DESCRIPTION		""
+		::=  {  enterprises  1  }
+
+	internet	OBJECT IDENTIFIER
+		::=  {  dod  1  }
+
+	mgmt	OBJECT IDENTIFIER
+		::=  {  internet  2  }
+
+	private	OBJECT IDENTIFIER
+		::=  {  internet  4  }
+
+	mib-2	OBJECT IDENTIFIER
+		::=  {  mgmt  1  }
+
+	enterprises	OBJECT IDENTIFIER
+		::=  {  private  1  }
+
+	transmission	OBJECT IDENTIFIER
+		::=  {  mib-2  10  }
+
+	rs232	OBJECT IDENTIFIER
+		::=  {  transmission  33  }
+
+	systemConfig	OBJECT IDENTIFIER
+		::=  {  sysbas  1  }
+
+	serialTable	OBJECT-TYPE
+		SYNTAX		SEQUENCE  OF  SerialEntry
+		MAX-ACCESS	not-accessible
+		STATUS		current
+		DESCRIPTION	"Description"
+		::=  { sysbas  2 }
+
+	serialEntry	OBJECT-TYPE
+		SYNTAX		SerialEntry
+		MAX-ACCESS	not-accessible
+		STATUS		current
+		DESCRIPTION	"Row Description"
+		INDEX		{  portIndex  }
+		::=  { serialTable 1 }
+
+	SerialEntry  ::=  SEQUENCE {
+		portIndex  Integer32,
+		portName  OCTET STRING,
+		socketNumber  Integer32,
+		protocol  INTEGER,
+		deviceType  INTEGER,
+		remoteIPAddress  IpAddress,
+		remoteSocketNumber  Integer32,
+		bypassEnable  TruthValue,
+		loginEnable  TruthValue,
+		loginUsername  OCTET STRING,
+		loginPassword  OCTET STRING,
+		connectionCount  Counter32,
+		connectionStatus  INTEGER,
+		serialRowStatus  RowStatus,
+		resetPort  Integer32,
+		keepAlive  Integer32
+		}
+
+
+	portIndex	OBJECT-TYPE	
+		SYNTAX			Integer32
+		MAX-ACCESS		not-accessible
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  serialEntry  1  }
+
+
+	portName	OBJECT-TYPE	
+		SYNTAX			OCTET STRING
+		MAX-ACCESS		read-write
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  serialEntry  2  }
+
+
+	socketNumber	OBJECT-TYPE	
+		SYNTAX			Integer32
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  serialEntry  3  }
+
+
+	protocol	OBJECT-TYPE	
+		SYNTAX			INTEGER  { disabled ( 0 ) , comRedirect ( 1 ) , tcpServer ( 2 ) , tcpClient ( 3 ) , tcpBroadcast ( 4 ) , tcpMultiplex ( 5 ) , udpServer ( 6 ) , udpClient ( 7 ) } 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  serialEntry  4  }
+
+
+	deviceType	OBJECT-TYPE	
+		SYNTAX			INTEGER  { data ( 0 ) , modem ( 1 ) } 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  serialEntry  5  }
+
+
+	remoteIPAddress	OBJECT-TYPE	
+		SYNTAX			IpAddress
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  serialEntry  6  }
+
+
+	remoteSocketNumber	OBJECT-TYPE	
+		SYNTAX			Integer32
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  serialEntry  7  }
+
+
+	bypassEnable	OBJECT-TYPE	
+		SYNTAX			TruthValue
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  serialEntry  8  }
+
+
+	loginEnable	OBJECT-TYPE	
+		SYNTAX			TruthValue
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  serialEntry  9  }
+
+
+	loginUsername	OBJECT-TYPE	
+		SYNTAX			OCTET STRING
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  serialEntry  10  }
+
+
+	loginPassword	OBJECT-TYPE	
+		SYNTAX			OCTET STRING
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  serialEntry  11  }
+
+
+	connectionCount	OBJECT-TYPE	
+		SYNTAX			Counter32
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  serialEntry  12  }
+
+
+	connectionStatus	OBJECT-TYPE	
+		SYNTAX			INTEGER  { idle ( 0 ) , connected ( 1) } 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  serialEntry  13  }
+
+
+	serialRowStatus	OBJECT-TYPE	
+		SYNTAX			RowStatus
+		MAX-ACCESS		read-create
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  serialEntry  14  }
+
+
+	resetPort	OBJECT-TYPE	
+		SYNTAX			Integer32
+		MAX-ACCESS		read-write
+		STATUS			current
+		DESCRIPTION		"Description"
+		::=  {  serialEntry  15  }
+
+
+	keepAlive	OBJECT-TYPE	
+		SYNTAX			Integer32
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"Description"
+		::=  {  serialEntry  16  }
+
+	gpioTable	OBJECT-TYPE
+		SYNTAX		SEQUENCE  OF  GpioEntry
+		MAX-ACCESS	not-accessible
+		STATUS		current
+		DESCRIPTION	"Description"
+		::=  { sysbas  3 }
+
+	gpioEntry	OBJECT-TYPE
+		SYNTAX		GpioEntry
+		MAX-ACCESS	not-accessible
+		STATUS		current
+		DESCRIPTION	"Row Description"
+		INDEX		{  gpioIndexNumber  }
+		::=  { gpioTable 1 }
+
+	GpioEntry  ::=  SEQUENCE {
+		gpioIndexNumber  Integer32,
+		gpioSocketNumber  Integer32,
+		gpioMode  INTEGER,
+		gpioValue  Integer32,
+		gpioRowStatus  RowStatus
+		}
+
+
+	gpioIndexNumber	OBJECT-TYPE	
+		SYNTAX			Integer32
+		MAX-ACCESS		not-accessible
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  gpioEntry  1  }
+
+
+	gpioSocketNumber	OBJECT-TYPE	
+		SYNTAX			Integer32  ( -2147483648 .. 2147483647  ) 
+		MAX-ACCESS		read-write
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  gpioEntry  2  }
+
+
+	gpioMode	OBJECT-TYPE	
+		SYNTAX			INTEGER  { input ( 0 ) , output ( 1 ) } 
+		MAX-ACCESS		read-write
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  gpioEntry  3  }
+
+
+	gpioValue	OBJECT-TYPE	
+		SYNTAX			Integer32  ( 0 .. 1  ) 
+		MAX-ACCESS		read-write
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  gpioEntry  4  }
+
+
+	gpioRowStatus	OBJECT-TYPE	
+		SYNTAX			RowStatus
+		MAX-ACCESS		read-create
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  gpioEntry  5  }
+
+	rs232Number	OBJECT-TYPE	
+		SYNTAX			Integer32
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The number of ports (regardless of their current
+        state) in the RS-232-like general port table."
+		::=  {  rs232  1  }
+
+	rs232PortTable	OBJECT-TYPE
+		SYNTAX		SEQUENCE  OF  Rs232PortEntry
+		MAX-ACCESS	not-accessible
+		STATUS		current
+		DESCRIPTION	"A list of port entries.  The number of entries is
+        given by the value of rs232Number."
+		::=  { rs232  2 }
+
+	rs232PortEntry	OBJECT-TYPE
+		SYNTAX		Rs232PortEntry
+		MAX-ACCESS	not-accessible
+		STATUS		current
+		DESCRIPTION	"Status and parameter values for a port."
+		INDEX		{  rs232PortIndex  }
+		::=  { rs232PortTable 1 }
+
+	Rs232PortEntry  ::=  SEQUENCE {
+		rs232PortIndex  InterfaceIndex,
+		rs232PortType  INTEGER,
+		rs232PortInSigNumber  Integer32,
+		rs232PortOutSigNumber  Integer32,
+		rs232PortInSpeed  Integer32,
+		rs232PortOutSpeed  Integer32,
+		rs232PortInFlowType  INTEGER,
+		rs232PortOutFlowType  INTEGER
+		}
+
+
+	rs232PortIndex	OBJECT-TYPE	
+		SYNTAX			InterfaceIndex
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The value of ifIndex for the port.  By convention
+        and if possible, hardware port numbers map directly
+        to external connectors.  The value for each port must
+        remain constant at least from one re-initialization
+        of the network management agent to the next."
+		::=  {  rs232PortEntry  1  }
+
+
+	rs232PortType	OBJECT-TYPE	
+		SYNTAX			INTEGER  { other ( 1 ) , rs232 ( 2 ) , rs422 ( 3 ) , rs423 ( 4 ) , v35 ( 5 ) , x21 ( 6 ) } 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The port's hardware type."
+		::=  {  rs232PortEntry  2  }
+
+
+	rs232PortInSigNumber	OBJECT-TYPE	
+		SYNTAX			Integer32
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The number of input signals for the port in the
+        input signal table (rs232PortInSigTable).  The table
+        contains entries only for those signals the software
+        can detect and that are useful to observe."
+		::=  {  rs232PortEntry  3  }
+
+
+	rs232PortOutSigNumber	OBJECT-TYPE	
+		SYNTAX			Integer32
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The number of output signals for the port in the
+        output signal table (rs232PortOutSigTable).  The
+        table contains entries only for those signals the
+        software can assert and that are useful to observe."
+		::=  {  rs232PortEntry  4  }
+
+
+	rs232PortInSpeed	OBJECT-TYPE	
+		SYNTAX			Integer32
+		MAX-ACCESS		read-write
+		STATUS			current
+		DESCRIPTION		"The port's input speed in bits per second.  Note that
+        non-standard values, such as 9612, are probably not allowed
+        on most implementations."
+		::=  {  rs232PortEntry  5  }
+
+
+	rs232PortOutSpeed	OBJECT-TYPE	
+		SYNTAX			Integer32
+		MAX-ACCESS		read-write
+		STATUS			current
+		DESCRIPTION		"The port's output speed in bits per second.  Note that
+        non-standard values, such as 9612, are probably not allowed
+        on most implementations."
+		::=  {  rs232PortEntry  6  }
+
+
+	rs232PortInFlowType	OBJECT-TYPE	
+		SYNTAX			INTEGER  { none ( 1 ) , ctsRts ( 2 ) , dsrDtr ( 3 ) } 
+		MAX-ACCESS		read-write
+		STATUS			current
+		DESCRIPTION		"The port's type of input flow control.  'none'
+        indicates no flow control at this level.
+        'ctsRts' and 'dsrDtr' indicate use of the indicated
+        hardware signals."
+		::=  {  rs232PortEntry  7  }
+
+
+	rs232PortOutFlowType	OBJECT-TYPE	
+		SYNTAX			INTEGER  { none ( 1 ) , ctsRts ( 2 ) , dsrDtr ( 3 ) } 
+		MAX-ACCESS		read-write
+		STATUS			current
+		DESCRIPTION		"The port's type of output flow control.  'none'
+        indicates no flow control at this level.
+        'ctsRts' and 'dsrDtr' indicate use of the indicated
+        hardware signals."
+		::=  {  rs232PortEntry  8  }
+
+	rs232AsyncPortTable	OBJECT-TYPE
+		SYNTAX		SEQUENCE  OF  Rs232AsyncPortEntry
+		MAX-ACCESS	not-accessible
+		STATUS		current
+		DESCRIPTION	"A list of asynchronous port entries.  Entries need
+        not exist for synchronous ports."
+		::=  { rs232  3 }
+
+	rs232AsyncPortEntry	OBJECT-TYPE
+		SYNTAX		Rs232AsyncPortEntry
+		MAX-ACCESS	not-accessible
+		STATUS		current
+		DESCRIPTION	"Status and parameter values for an asynchronous
+        port."
+		INDEX		{  rs232AsyncPortIndex  }
+		::=  { rs232AsyncPortTable 1 }
+
+	Rs232AsyncPortEntry  ::=  SEQUENCE {
+		rs232AsyncPortIndex  InterfaceIndex,
+		rs232AsyncPortBits  Integer32,
+		rs232AsyncPortStopBits  INTEGER,
+		rs232AsyncPortParity  INTEGER,
+		rs232AsyncPortAutobaud  INTEGER,
+		rs232AsyncPortParityErrs  Counter32,
+		rs232AsyncPortFramingErrs  Counter32,
+		rs232AsyncPortOverrunErrs  Counter32
+		}
+
+
+	rs232AsyncPortIndex	OBJECT-TYPE	
+		SYNTAX			InterfaceIndex
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"A unique value for each port.  Its value is the
+        same as rs232PortIndex for the port."
+		::=  {  rs232AsyncPortEntry  1  }
+
+
+	rs232AsyncPortBits	OBJECT-TYPE	
+		SYNTAX			Integer32  ( 5 .. 8  ) 
+		MAX-ACCESS		read-write
+		STATUS			current
+		DESCRIPTION		"The port's number of bits in a character."
+		::=  {  rs232AsyncPortEntry  2  }
+
+
+	rs232AsyncPortStopBits	OBJECT-TYPE	
+		SYNTAX			INTEGER  { one ( 1 ) , two ( 2 ) , oneAndHalf ( 3 ) , dynamic ( 4 ) } 
+		MAX-ACCESS		read-write
+		STATUS			current
+		DESCRIPTION		"The port's number of stop bits."
+		::=  {  rs232AsyncPortEntry  3  }
+
+
+	rs232AsyncPortParity	OBJECT-TYPE	
+		SYNTAX			INTEGER  { none ( 1 ) , odd ( 2 ) , even ( 3 ) , mark ( 4 ) , space ( 5 ) } 
+		MAX-ACCESS		read-write
+		STATUS			current
+		DESCRIPTION		"The port's sense of a character parity bit."
+		::=  {  rs232AsyncPortEntry  4  }
+
+
+	rs232AsyncPortAutobaud	OBJECT-TYPE	
+		SYNTAX			INTEGER  { enabled ( 1 ) , disabled ( 2 ) } 
+		MAX-ACCESS		read-write
+		STATUS			current
+		DESCRIPTION		"A control for the port's ability to automatically
+        sense input speed.
+
+        When rs232PortAutoBaud is 'enabled', a port may
+        autobaud to values different from the set values for
+        speed, parity, and character size.  As a result a
+        network management system may temporarily observe
+        values different from what was previously set."
+		::=  {  rs232AsyncPortEntry  5  }
+
+
+	rs232AsyncPortParityErrs	OBJECT-TYPE	
+		SYNTAX			Counter32
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"Total number of characters with a parity error,
+        input from the port since system re-initialization
+        and while the port state was 'up' or 'test'."
+		::=  {  rs232AsyncPortEntry  6  }
+
+
+	rs232AsyncPortFramingErrs	OBJECT-TYPE	
+		SYNTAX			Counter32
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"Total number of characters with a framing error,
+        input from the port since system re-initialization
+        and while the port state was 'up' or 'test'."
+		::=  {  rs232AsyncPortEntry  7  }
+
+
+	rs232AsyncPortOverrunErrs	OBJECT-TYPE	
+		SYNTAX			Counter32
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"Total number of characters with an overrun error,
+        input from the port since system re-initialization
+        and while the port state was 'up' or 'test'."
+		::=  {  rs232AsyncPortEntry  8  }
+
+	rs232InSigTable	OBJECT-TYPE
+		SYNTAX		SEQUENCE  OF  Rs232InSigEntry
+		MAX-ACCESS	not-accessible
+		STATUS		current
+		DESCRIPTION	"A list of port input control signal entries
+        implemented and visible to the software on the port,
+        and useful to monitor."
+		::=  { rs232  4 }
+
+	rs232InSigEntry	OBJECT-TYPE
+		SYNTAX		Rs232InSigEntry
+		MAX-ACCESS	not-accessible
+		STATUS		current
+		DESCRIPTION	"Input control signal status for a hardware port."
+		INDEX		{  rs232InSigPortIndex, rs232InSigName  }
+		::=  { rs232InSigTable 1 }
+
+	Rs232InSigEntry  ::=  SEQUENCE {
+		rs232InSigPortIndex  InterfaceIndex,
+		rs232InSigName  INTEGER,
+		rs232InSigState  INTEGER,
+		rs232InSigChanges  Counter32
+		}
+
+
+	rs232InSigPortIndex	OBJECT-TYPE	
+		SYNTAX			InterfaceIndex
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The value of rs232PortIndex for the port to which
+        this entry belongs."
+		::=  {  rs232InSigEntry  1  }
+
+
+	rs232InSigName	OBJECT-TYPE	
+		SYNTAX			INTEGER  { rts ( 1 ) , cts ( 2 ) , dsr ( 3 ) , dtr ( 4 ) , ri ( 5 ) , dcd ( 6 ) , sq ( 7 ) , srs ( 8 ) , srts ( 9 ) , scts ( 10 ) , sdcd ( 11 ) } 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"Identification of a hardware signal, as follows:
+
+            rts    Request to Send
+            cts    Clear to Send
+            dsr    Data Set Ready
+            dtr    Data Terminal Ready
+            ri     Ring Indicator
+            dcd    Received Line Signal Detector
+            sq     Signal Quality Detector
+            srs    Data Signaling Rate Selector
+            srts   Secondary Request to Send
+            scts   Secondary Clear to Send
+            sdcd   Secondary Received Line Signal Detector
+        "
+		REFERENCE		"EIA Standard RS-232-C, August 1969."
+		::=  {  rs232InSigEntry  2  }
+
+
+	rs232InSigState	OBJECT-TYPE	
+		SYNTAX			INTEGER  { none ( 1 ) , on ( 2 ) , off ( 3 ) } 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The current signal state."
+		::=  {  rs232InSigEntry  3  }
+
+
+	rs232InSigChanges	OBJECT-TYPE	
+		SYNTAX			Counter32
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The number of times the signal has changed from
+        'on' to 'off' or from 'off' to 'on'."
+		::=  {  rs232InSigEntry  4  }
+
+	rs232OutSigTable	OBJECT-TYPE
+		SYNTAX		SEQUENCE  OF  Rs232OutSigEntry
+		MAX-ACCESS	not-accessible
+		STATUS		current
+		DESCRIPTION	"A list of port output control signal entries
+        implemented and visible to the software on the port,
+        and useful to monitor."
+		::=  { rs232  5 }
+
+	rs232OutSigEntry	OBJECT-TYPE
+		SYNTAX		Rs232OutSigEntry
+		MAX-ACCESS	not-accessible
+		STATUS		current
+		DESCRIPTION	"Output control signal status for a hardware port."
+		INDEX		{  rs232OutSigPortIndex, rs232OutSigName  }
+		::=  { rs232OutSigTable 1 }
+
+	Rs232OutSigEntry  ::=  SEQUENCE {
+		rs232OutSigPortIndex  InterfaceIndex,
+		rs232OutSigName  INTEGER,
+		rs232OutSigState  INTEGER,
+		rs232OutSigChanges  Counter32
+		}
+
+
+	rs232OutSigPortIndex	OBJECT-TYPE	
+		SYNTAX			InterfaceIndex
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The value of rs232PortIndex for the port to which
+        this entry belongs."
+		::=  {  rs232OutSigEntry  1  }
+
+
+	rs232OutSigName	OBJECT-TYPE	
+		SYNTAX			INTEGER  { rts ( 1 ) , cts ( 2 ) , dsr ( 3 ) , dtr ( 4 ) , ri ( 5 ) , dcd ( 6 ) , sq ( 7 ) , srs ( 8 ) , srts ( 9 ) , scts ( 10 ) , sdcd ( 11 ) } 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"Identification of a hardware signal, as follows:
+
+            rts    Request to Send
+            cts    Clear to Send
+            dsr    Data Set Ready
+            dtr    Data Terminal Ready
+            ri     Ring Indicator
+            dcd    Received Line Signal Detector
+            sq     Signal Quality Detector
+            srs    Data Signaling Rate Selector
+            srts   Secondary Request to Send
+            scts   Secondary Clear to Send
+            sdcd   Secondary Received Line Signal Detector
+        "
+		REFERENCE		"EIA Standard RS-232-C, August 1969."
+		::=  {  rs232OutSigEntry  2  }
+
+
+	rs232OutSigState	OBJECT-TYPE	
+		SYNTAX			INTEGER  { none ( 1 ) , on ( 2 ) , off ( 3 ) } 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The current signal state."
+		::=  {  rs232OutSigEntry  3  }
+
+
+	rs232OutSigChanges	OBJECT-TYPE	
+		SYNTAX			Counter32
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"The number of times the signal has changed from
+        'on' to 'off' or from 'off' to 'on'."
+		::=  {  rs232OutSigEntry  4  }
+
+	rs232Conformance	OBJECT IDENTIFIER
+		::=  {  rs232  6  }
+
+	macAddress	OBJECT-TYPE	
+		SYNTAX			MacAddress
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  systemConfig  1  }
+
+	ipAddress	OBJECT-TYPE	
+		SYNTAX			IpAddress
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  systemConfig  2  }
+
+	subnetMask	OBJECT-TYPE	
+		SYNTAX			IpAddress
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  systemConfig  3  }
+
+	gatewayAddress	OBJECT-TYPE	
+		SYNTAX			IpAddress
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  systemConfig  4  }
+
+	dnsServerAddress	OBJECT-TYPE	
+		SYNTAX			IpAddress
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  systemConfig  5  }
+
+	ddnsServerAddress	OBJECT-TYPE	
+		SYNTAX			IpAddress
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  systemConfig  6  }
+
+	ntpServerAddress	OBJECT-TYPE	
+		SYNTAX			IpAddress
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  systemConfig  7  }
+
+	portViewAddress	OBJECT-TYPE	
+		SYNTAX			IpAddress
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  systemConfig  8  }
+
+	lineType	OBJECT-TYPE	
+		SYNTAX			INTEGER  { staticIP ( 1 ) , dhcp ( 2 ) } 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  systemConfig  9  }
+
+	deviceName	OBJECT-TYPE	
+		SYNTAX			OCTET STRING
+		MAX-ACCESS		read-write
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  systemConfig  10  }
+
+	username	OBJECT-TYPE	
+		SYNTAX			OCTET STRING
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  systemConfig  11  }
+
+	password	OBJECT-TYPE	
+		SYNTAX			OCTET STRING
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  systemConfig  12  }
+
+	portViewPortNumber	OBJECT-TYPE	
+		SYNTAX			Integer32  ( -2147483648 .. 2147483647  ) 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  systemConfig  13  }
+
+	snmpAgentEnable	OBJECT-TYPE	
+		SYNTAX			TruthValue  { true ( 1 ) , false ( 0 ) } 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  systemConfig  14  }
+
+	telnetServerEnable	OBJECT-TYPE	
+		SYNTAX			TruthValue  { true ( 1 ) , false ( 0 ) } 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  systemConfig  15  }
+
+	ftpServerEnable	OBJECT-TYPE	
+		SYNTAX			TruthValue  { true ( 1 ) , false ( 0 ) } 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  systemConfig  16  }
+
+	webServerEnable	OBJECT-TYPE	
+		SYNTAX			TruthValue  { true ( 1 ) , false ( 0 ) } 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  systemConfig  17  }
+
+	sshServerEnable	OBJECT-TYPE	
+		SYNTAX			TruthValue  { true ( 1 ) , false ( 0 ) } 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  systemConfig  18  }
+
+	targetAgentEnable	OBJECT-TYPE	
+		SYNTAX			TruthValue  { true ( 1 ) , false ( 0 ) } 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  systemConfig  19  }
+
+	modelName	OBJECT-TYPE	
+		SYNTAX			OCTET STRING
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  systemConfig  20  }
+
+	ddnsUsername	OBJECT-TYPE	
+		SYNTAX			OCTET STRING
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  systemConfig  21  }
+
+	ddnsPassword	OBJECT-TYPE	
+		SYNTAX			OCTET STRING
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  systemConfig  22  }
+
+	website	OBJECT-TYPE	
+		SYNTAX			OCTET STRING
+		MAX-ACCESS		read-write
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  systemConfig  23  }
+
+	contact	OBJECT-TYPE	
+		SYNTAX			OCTET STRING
+		MAX-ACCESS		read-write
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  systemConfig  24  }
+	
+	v1ReadWrite	OBJECT-TYPE	
+		SYNTAX			INTEGER  { read-only ( 0 ) , read-write ( 1 ) } 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  systemConfig  25  }
+
+	v3ReadWrite	OBJECT-TYPE	
+		SYNTAX			INTEGER  { read-only ( 0 ) , read-write ( 1 ) } 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  systemConfig  26  }
+
+	v3Username	OBJECT-TYPE	
+		SYNTAX			OCTET STRING
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  systemConfig  27  }
+
+	v3Password	OBJECT-TYPE	
+		SYNTAX			OCTET STRING
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  systemConfig  28  }
+
+	trapIPAddress	OBJECT-TYPE	
+		SYNTAX			IpAddress
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  trapInfo  1  }
+
+	trapPortNumber	OBJECT-TYPE	
+		SYNTAX			Integer32
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  trapInfo  2  }
+
+	trapOption	OBJECT-TYPE	
+		SYNTAX			INTEGER  { none ( 0 ) , systemRestartNotificationEnabled ( 1 ) , portConnectionNotificationEnabled ( 2 ) , allNotificationsEnabled ( 3 ) } 
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		"If set to 0, no trap is enabled.
+If set to 1, system restart notification is enabled.
+If set to 2, port connectino notification is enabled.
+If set to 3, both notifications are enabled."
+		::=  {  trapInfo  3  }
+
+	bootloaderVersion	OBJECT-TYPE	
+		SYNTAX			OCTET STRING
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  admin  3  }
+
+	kernelVersion	OBJECT-TYPE	
+		SYNTAX			OCTET STRING
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  admin  1  }
+
+	filesystemVersion	OBJECT-TYPE	
+		SYNTAX			OCTET STRING
+		MAX-ACCESS		read-only
+		STATUS			current
+		DESCRIPTION		""
+		::=  {  admin  2  }
+
+	rs232Groups	OBJECT IDENTIFIER
+		::=  {  rs232Conformance  1  }
+
+	rs232Compliances	OBJECT IDENTIFIER
+		::=  {  rs232Conformance  2  }
+
+	rs232Group	OBJECT-GROUP
+		OBJECTS			{ rs232Number, rs232PortIndex, rs232PortType, rs232PortInSigNumber, rs232PortOutSigNumber, rs232PortInSpeed, rs232PortOutSpeed, rs232PortInFlowType, rs232PortOutFlowType, rs232InSigPortIndex, rs232InSigName, rs232InSigState, rs232InSigChanges, rs232OutSigPortIndex, rs232OutSigName, rs232OutSigState, rs232OutSigChanges }
+		STATUS			current
+		DESCRIPTION		"A collection of objects providing information
+             applicable to all RS-232-like interfaces."
+		::=  {  rs232Groups  1  }
+
+	rs232AsyncGroup	OBJECT-GROUP
+		OBJECTS			{ rs232AsyncPortIndex, rs232AsyncPortBits, rs232AsyncPortStopBits, rs232AsyncPortParity, rs232AsyncPortAutobaud, rs232AsyncPortParityErrs, rs232AsyncPortFramingErrs, rs232AsyncPortOverrunErrs }
+		STATUS			current
+		DESCRIPTION		"A collection of objects providing information
+             applicable to asynchronous RS-232-like interfaces."
+		::=  {  rs232Groups  2  }
+
+	rs232Compliance	MODULE-COMPLIANCE
+		STATUS			current
+		DESCRIPTION		"The compliance statement for SNMPv2 entities
+            which have RS-232-like hardware interfaces."
+
+		MODULE 	
+			MANDATORY-GROUPS	{ rs232Group }
+			GROUP	rs232AsyncGroup
+				DESCRIPTION		"The Asynch group is mandatory only for those
+             SNMPv2 entities which have asynchronous
+             interfaces Rs-232-like."
+		::=  {  rs232Compliances  1  }
+
+	admin	OBJECT IDENTIFIER
+		::=  {  sysbas  4  }
+
+	trapInfo	OBJECT IDENTIFIER
+		::=  {  sysbas  5  }
+
+	reboot	OBJECT-TYPE	
+		SYNTAX			Integer32
+		MAX-ACCESS		read-write
+		STATUS			current
+		DESCRIPTION		"Description"
+		::=  {  admin  4  }
+
+	portNumber	OBJECT-TYPE	
+		SYNTAX			Integer32
+		MAX-ACCESS		accessible-for-notify
+		STATUS			current
+		DESCRIPTION		"This is a socket number inserted within the 'portConnectionNotification', so that the trap server can analyze which port is in change."
+		::=  {  trapInfo  4  }
+
+	systemRestartNotification	NOTIFICATION-TYPE
+		STATUS			current
+		DESCRIPTION		"Description"
+		::=  {  trapInfo  5  }
+
+	portConnectionNotification	NOTIFICATION-TYPE
+		OBJECTS			{ portNumber }
+		STATUS			current
+		DESCRIPTION		"Description"
+		::=  {  trapInfo  6  }
+
+END

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="installedFeatures">
+		<item value="org.apache.commons.net:1.4.1.200611131348"/>
+		<item value="org.apache.oro:2.0.8.200611131348"/>
+		<item value="org.eclipse.platform.source:3.2.2.r322_v20070119-RQghndJN8IM0MsK"/>
+		<item value="org.eclipse.rcp.source:3.2.2.r322_v20070104-8pcviKVqd8J7C1U"/>
+		<item value="org.eclipse.rcp:3.2.2.r322_v20070104-8pcviKVqd8J7C1U"/>
+		<item value="org.eclipse.sdk:3.2.2.r322_v20070104-dCGKm0Ln38lm-8s"/>
+	</list>
+	<section name="org.eclipse.ui.views.task">
+	</section>
+	<section name="ResourceNavigator">
+		<item key="ResourceWorkingSetFilter.STORE_WORKING_SET" value="Aggregate for window 1192761881924"/>
+		<item key="ResourceViewer.STORE_SORT_TYPE" value="1"/>
+	</section>
+</section>
