@@ -45,6 +45,6 @@ if [ "$PS1" ]; then
     alias minicom='minicom -c on'
     alias calc='calc -Cd '
     alias bc='calc -Cd '
-    alias grep='grep --color=never'
+    #alias grep='grep --color=never'
     alias ls='ls --color=never'
 fi;
